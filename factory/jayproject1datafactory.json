@@ -1,0 +1,9 @@
+{
+	"name": "jayproject1datafactory",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4fc20034-3575-45b7-86dd-8d5302e87cfb",
+		"tenantId": "4130bd39-7c53-419c-b1e5-8758d6d63f21"
+	}
+}
