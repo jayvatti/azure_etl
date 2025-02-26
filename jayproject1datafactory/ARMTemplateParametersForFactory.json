@@ -8,6 +8,9 @@
 		"AzureBlob_realistic_customers_connectionString": {
 			"value": ""
 		},
+		"AzurePostgreSql_SOURCE_connectionString": {
+			"value": ""
+		},
 		"CosmosDB_Database_SOURCE_connectionString": {
 			"value": ""
 		}

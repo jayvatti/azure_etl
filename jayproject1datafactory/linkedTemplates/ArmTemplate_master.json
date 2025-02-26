@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlob_realistic_customers'"
 		},
+		"AzurePostgreSql_SOURCE_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzurePostgreSql_SOURCE'"
+		},
 		"CosmosDB_Database_SOURCE_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'CosmosDB_Database_SOURCE'"
@@ -44,6 +48,9 @@
 					},
 					"AzureBlob_realistic_customers_connectionString": {
 						"value": "[parameters('AzureBlob_realistic_customers_connectionString')]"
+					},
+					"AzurePostgreSql_SOURCE_connectionString": {
+						"value": "[parameters('AzurePostgreSql_SOURCE_connectionString')]"
 					},
 					"CosmosDB_Database_SOURCE_connectionString": {
 						"value": "[parameters('CosmosDB_Database_SOURCE_connectionString')]"
