@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "pipeline_project1",
 	"properties": {
 		"activities": [
 			{
-				"name": "Data flow1",
+				"name": "Project1DataFlow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -15,6 +15,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow_project1",
+						"type": "DataFlowReference"
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
