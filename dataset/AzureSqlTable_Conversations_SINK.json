@@ -1,0 +1,27 @@
+{
+	"name": "AzureSqlTable_Conversations_SINK",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSQLDatabase_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ConversationID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CustomerID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Conversations"
+		}
+	}
+}

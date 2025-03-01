@@ -1,0 +1,38 @@
+{
+	"name": "AzureSqlTable_ConversationMessages_SINK",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSQLDatabase_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ConversationID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SupportAgent",
+				"type": "varchar"
+			},
+			{
+				"name": "MessageSender",
+				"type": "varchar"
+			},
+			{
+				"name": "Message",
+				"type": "text"
+			},
+			{
+				"name": "Timestamp",
+				"type": "timestamp"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ConversationMessages"
+		}
+	}
+}
