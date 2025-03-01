@@ -19,6 +19,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'CosmosDB_Database_SOURCE'"
 		},
+		"AzureSQLDatabase_SINK_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSQLDatabase_SINK'"
+		},
+		"AzureSQLDatabase_SINK_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "project1sqltargetserver.database.windows.net"
+		},
+		"AzureSQLDatabase_SINK_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "project1sqltargetdb"
+		},
+		"AzureSQLDatabase_SINK_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "project1"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -54,6 +70,18 @@
 					},
 					"CosmosDB_Database_SOURCE_connectionString": {
 						"value": "[parameters('CosmosDB_Database_SOURCE_connectionString')]"
+					},
+					"AzureSQLDatabase_SINK_password": {
+						"value": "[parameters('AzureSQLDatabase_SINK_password')]"
+					},
+					"AzureSQLDatabase_SINK_properties_typeProperties_server": {
+						"value": "[parameters('AzureSQLDatabase_SINK_properties_typeProperties_server')]"
+					},
+					"AzureSQLDatabase_SINK_properties_typeProperties_database": {
+						"value": "[parameters('AzureSQLDatabase_SINK_properties_typeProperties_database')]"
+					},
+					"AzureSQLDatabase_SINK_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSQLDatabase_SINK_properties_typeProperties_userName')]"
 					}
 				}
 			},

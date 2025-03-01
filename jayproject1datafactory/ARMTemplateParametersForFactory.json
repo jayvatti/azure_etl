@@ -13,6 +13,18 @@
 		},
 		"CosmosDB_Database_SOURCE_connectionString": {
 			"value": ""
+		},
+		"AzureSQLDatabase_SINK_password": {
+			"value": ""
+		},
+		"AzureSQLDatabase_SINK_properties_typeProperties_server": {
+			"value": "project1sqltargetserver.database.windows.net"
+		},
+		"AzureSQLDatabase_SINK_properties_typeProperties_database": {
+			"value": "project1sqltargetdb"
+		},
+		"AzureSQLDatabase_SINK_properties_typeProperties_userName": {
+			"value": "project1"
 		}
 	}
 }
