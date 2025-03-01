@@ -41,7 +41,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "PhoneFormatting"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          orderdetailid as integer,",
@@ -90,7 +94,45 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'document') ~> realisticCustomersCosmos"
+				"     format: 'document') ~> realisticCustomersCosmos",
+				"realisticCustomersBlob derive(PhoneFormatted = concat(",
+				"    substring(",
+				"        iif(",
+				"            length(regexReplace(Phone, '[^0-9]', '')) < 10,",
+				"            concat(",
+				"                regexReplace(Phone, '[^0-9]', ''),",
+				"                substring('XXXXXXXXXX', 1, 10 - length(regexReplace(Phone, '[^0-9]', '')))",
+				"            ),",
+				"            regexReplace(Phone, '[^0-9]', '')",
+				"        ),",
+				"        1, 3",
+				"    ),",
+				"    '-',",
+				"    substring(",
+				"        iif(",
+				"            length(regexReplace(Phone, '[^0-9]', '')) < 10,",
+				"            concat(",
+				"                regexReplace(Phone, '[^0-9]', ''),",
+				"                substring('XXXXXXXXXX', 1, 10 - length(regexReplace(Phone, '[^0-9]', '')))",
+				"            ),",
+				"            regexReplace(Phone, '[^0-9]', '')",
+				"        ),",
+				"        4, 3",
+				"    ),",
+				"    '-',",
+				"    substring(",
+				"        iif(",
+				"            length(regexReplace(Phone, '[^0-9]', '')) < 10,",
+				"            concat(",
+				"                regexReplace(Phone, '[^0-9]', ''),",
+				"                substring('XXXXXXXXXX', 1, 10 - length(regexReplace(Phone, '[^0-9]', '')))",
+				"            ),",
+				"            regexReplace(Phone, '[^0-9]', '')",
+				"        ),",
+				"        7, 4",
+				"    )",
+				")",
+				") ~> PhoneFormatting"
 			]
 		}
 	}
