@@ -3,11 +3,94 @@
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [],
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzurePostgreSql_orderdetails_SOURCE",
+						"type": "DatasetReference"
+					},
+					"name": "orderdetailsPGSQL"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzurePostgreSql_orders_SOURCE",
+						"type": "DatasetReference"
+					},
+					"name": "ordersPGSQL"
+				},
+				{
+					"dataset": {
+						"referenceName": "BlobStorage_realitic_customers_SOURCE",
+						"type": "DatasetReference"
+					},
+					"name": "realisticCustomersBlob"
+				},
+				{
+					"dataset": {
+						"referenceName": "CosmosDb_Products_SOURCE",
+						"type": "DatasetReference"
+					},
+					"name": "prdocutsCosmos"
+				},
+				{
+					"dataset": {
+						"referenceName": "CosmosDb_RealisticCustomers_SOURCE",
+						"type": "DatasetReference"
+					},
+					"name": "realisticCustomersCosmos"
+				}
+			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				""
+				"source(output(",
+				"          orderdetailid as integer,",
+				"          orderid as integer,",
+				"          productid as integer,",
+				"          quantity as integer,",
+				"          price as decimal(10,2)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> orderdetailsPGSQL",
+				"source(output(",
+				"          orderid as integer,",
+				"          customerid as integer,",
+				"          orderdate as timestamp,",
+				"          paymentstatus as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> ordersPGSQL",
+				"source(output(",
+				"          CustomerID as string,",
+				"          Name as string,",
+				"          Email as string,",
+				"          Phone as string,",
+				"          LastPurchaseDate as string,",
+				"          TotalSpent as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> realisticCustomersBlob",
+				"source(output(",
+				"          ProductID as integer,",
+				"          ProductName as string,",
+				"          Price as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'document') ~> prdocutsCosmos",
+				"source(output(",
+				"          CustomerID as integer,",
+				"          Profile as (FirstName as string, LastName as string, Email as string),",
+				"          Conversations as (ConversationID as string, Messages as (DateTime as string, Sender as string, Message as string)[])[]",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'document') ~> realisticCustomersCosmos"
 			]
 		}
 	}
