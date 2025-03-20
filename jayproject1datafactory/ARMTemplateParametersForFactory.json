@@ -11,10 +11,10 @@
 		"AzurePostgreSql_SOURCE_connectionString": {
 			"value": ""
 		},
-		"CosmosDB_Database_SOURCE_connectionString": {
+		"AzureSQLDatabase_SINK_password": {
 			"value": ""
 		},
-		"AzureSQLDatabase_SINK_password": {
+		"CosmosDB_Database_SOURCE_connectionString": {
 			"value": ""
 		},
 		"AzureSQLDatabase_SINK_properties_typeProperties_server": {
