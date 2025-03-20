@@ -27,7 +27,9 @@
 			},
 			{
 				"name": "Timestamp",
-				"type": "timestamp"
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
 			}
 		],
 		"typeProperties": {

@@ -60,7 +60,7 @@
 						"referenceName": "AzureSqlTable_ConversationMessages_SINK",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "ConversationMessages"
 				}
 			],
 			"transformations": [
@@ -92,7 +92,7 @@
 					"name": "MessagesFlatten"
 				},
 				{
-					"name": "TimeStampFormat"
+					"name": "ConvMessageSelect"
 				}
 			],
 			"scriptLines": [
@@ -219,7 +219,15 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> MessagesFlatten",
-				"MessagesFlatten derive(TimeStamp = Messages.DateTime) ~> TimeStampFormat",
+				"MessagesFlatten select(mapColumn(",
+				"          Message = Messages.Message,",
+				"          ConversationIDFormatINT,",
+				"          SupportAgent = Messages.SupportAgent,",
+				"          Sender = Messages.Sender,",
+				"          DateTime = Messages.DateTime",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> ConvMessageSelect",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -258,14 +266,14 @@
 				"          ConversationID = ConversationIDFormatINT,",
 				"          CustomerID",
 				"     )) ~> ConversationSink",
-				"TimeStampFormat sink(allowSchemaDrift: true,",
+				"ConvMessageSelect sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          ConversationID as integer,",
 				"          SupportAgent as string,",
 				"          MessageSender as string,",
 				"          Message as string,",
-				"          Timestamp as binary",
+				"          Timestamp as timestamp",
 				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
@@ -276,8 +284,12 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
-				"          Timestamp = Messages",
-				"     )) ~> sink1"
+				"          ConversationID = ConversationIDFormatINT,",
+				"          SupportAgent,",
+				"          MessageSender = Sender,",
+				"          Message,",
+				"          Timestamp = DateTime",
+				"     )) ~> ConversationMessages"
 			]
 		}
 	}
