@@ -47,6 +47,9 @@
 				},
 				{
 					"name": "LeftOuterCustomerID"
+				},
+				{
+					"name": "EmailAddress"
 				}
 			],
 			"scriptLines": [
@@ -139,7 +142,13 @@
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> LeftOuterCustomerID"
+				"     broadcast: 'auto')~> LeftOuterCustomerID",
+				"LeftOuterCustomerID derive(PrimaryEmailAddress = iif(regexMatch(Profile.Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Primary Email is Invalid')",
+				"",
+				",",
+				"          AlternateEmailAddress = iif(regexMatch(Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Alternate Email is Invalid')",
+				"",
+				") ~> EmailAddress"
 			]
 		}
 	}
