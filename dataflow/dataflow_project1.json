@@ -46,14 +46,14 @@
 						"referenceName": "AzureSqlTable_AlternateEmails_SINK",
 						"type": "DatasetReference"
 					},
-					"name": "AlternateEmails"
+					"name": "AlternateEmailsSink"
 				},
 				{
 					"dataset": {
 						"referenceName": "AzureSqlTable_Conversations_SINK",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "ConversationSink"
 				}
 			],
 			"transformations": [
@@ -209,7 +209,7 @@
 				"          AlternateEmailID = realisticCustomersBlob@CustomerID,",
 				"          CustomerID = realisticCustomersCosmos@CustomerID,",
 				"          EmailAddress = Email",
-				"     )) ~> AlternateEmails",
+				"     )) ~> AlternateEmailsSink",
 				"INTConversationID sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -227,7 +227,7 @@
 				"     mapColumn(",
 				"          ConversationID = ConversationIDFormatINT,",
 				"          CustomerID",
-				"     )) ~> sink1"
+				"     )) ~> ConversationSink"
 			]
 		}
 	}
