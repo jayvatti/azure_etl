@@ -46,7 +46,7 @@
 						"referenceName": "AzureSqlTable_AlternateEmails_SINK",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "AlternateEmails"
 				}
 			],
 			"transformations": [
@@ -58,6 +58,9 @@
 				},
 				{
 					"name": "EmailAddress"
+				},
+				{
+					"name": "Conversations"
 				}
 			],
 			"scriptLines": [
@@ -157,6 +160,12 @@
 				"          AlternateEmailAddress = iif(regexMatch(Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Alternate Email is Invalid')",
 				"",
 				") ~> EmailAddress",
+				"LeftOuterCustomerID select(mapColumn(",
+				"          CustomerID = realisticCustomersCosmos@CustomerID,",
+				"          Conversations",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Conversations",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -176,7 +185,7 @@
 				"          AlternateEmailID = realisticCustomersBlob@CustomerID,",
 				"          CustomerID = realisticCustomersCosmos@CustomerID,",
 				"          EmailAddress = AlternateEmailAddress",
-				"     )) ~> sink1"
+				"     )) ~> AlternateEmails"
 			]
 		}
 	}
