@@ -70,7 +70,9 @@
 									"productsCosmos": {},
 									"realisticCustomersCosmos": {},
 									"AlternateEmailsSink": {},
-									"ConversationSink": {}
+									"ConversationSink": {},
+									"ConversationMessages": {},
+									"CustomerSink": {}
 								}
 							},
 							"staging": {},
@@ -256,7 +258,9 @@
 					},
 					{
 						"name": "Timestamp",
-						"type": "timestamp"
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
 					}
 				],
 				"typeProperties": {
@@ -664,6 +668,20 @@
 								"type": "DatasetReference"
 							},
 							"name": "ConversationSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable_ConversationMessages_SINK",
+								"type": "DatasetReference"
+							},
+							"name": "ConversationMessages"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable_Customer_SINK",
+								"type": "DatasetReference"
+							},
+							"name": "CustomerSink"
 						}
 					],
 					"transformations": [
@@ -693,6 +711,15 @@
 						},
 						{
 							"name": "MessagesFlatten"
+						},
+						{
+							"name": "ConvMessageSelect"
+						},
+						{
+							"name": "CustomerFlow"
+						},
+						{
+							"name": "CustomerIDFlow"
 						}
 					],
 					"scriptLines": [
@@ -739,7 +766,7 @@
 						"source(output(",
 						"          CustomerID as integer,",
 						"          Profile as (FirstName as string, LastName as string, Email as string),",
-						"          Conversations as (ConversationID as string, Messages as (DateTime as string, Sender as string, Message as string)[])[]",
+						"          Conversations as (ConversationID as string, Messages as (DateTime as timestamp, Message as string, Sender as string, SupportAgent as string)[])[]",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
@@ -812,13 +839,36 @@
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> ConvMessageFlow",
-						"ConvMessageFlow foldDown(unroll(Messages),",
+						"ConvMessageFlow foldDown(unroll(Messages, Messages),",
 						"     mapColumn(",
 						"          Messages,",
 						"          ConversationIDFormatINT",
 						"     ),",
 						"     skipDuplicateMapInputs: false,",
 						"     skipDuplicateMapOutputs: false) ~> MessagesFlatten",
+						"MessagesFlatten select(mapColumn(",
+						"          Message = Messages.Message,",
+						"          ConversationIDFormatINT,",
+						"          SupportAgent = Messages.SupportAgent,",
+						"          Sender = Messages.Sender,",
+						"          DateTime = Messages.DateTime",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> ConvMessageSelect",
+						"EmailAddress select(mapColumn(",
+						"          CustomerID = realisticCustomersCosmos@CustomerID,",
+						"          PhoneFormatted,",
+						"          PrimaryEmailAddress,",
+						"          FirstName = Profile.FirstName,",
+						"          LastName = Profile.LastName",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> CustomerFlow",
+						"LeftOuterCustomerID select(mapColumn(",
+						"          CustomerID = realisticCustomersCosmos@CustomerID",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> CustomerIDFlow",
 						"EmailAddress sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
@@ -856,7 +906,55 @@
 						"     mapColumn(",
 						"          ConversationID = ConversationIDFormatINT,",
 						"          CustomerID",
-						"     )) ~> ConversationSink"
+						"     )) ~> ConversationSink",
+						"ConvMessageSelect sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ConversationID as integer,",
+						"          SupportAgent as string,",
+						"          MessageSender as string,",
+						"          Message as string,",
+						"          Timestamp as timestamp",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          ConversationID = ConversationIDFormatINT,",
+						"          SupportAgent,",
+						"          MessageSender = Sender,",
+						"          Message,",
+						"          Timestamp = DateTime",
+						"     )) ~> ConversationMessages",
+						"CustomerFlow sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          CustomerID as integer,",
+						"          FirstName as string,",
+						"          LastName as string,",
+						"          PrimaryEmailAddress as string,",
+						"          PhoneNumber as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          CustomerID,",
+						"          FirstName,",
+						"          LastName,",
+						"          PrimaryEmailAddress,",
+						"          PhoneNumber = PhoneFormatted",
+						"     )) ~> CustomerSink"
 					]
 				}
 			},
@@ -867,7 +965,9 @@
 				"[concat(variables('factoryId'), '/datasets/CosmosDb_Products_SOURCE')]",
 				"[concat(variables('factoryId'), '/datasets/CosmosDb_RealisticCustomers_SOURCE')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_AlternateEmails_SINK')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_Conversations_SINK')]"
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_Conversations_SINK')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_ConversationMessages_SINK')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_Customer_SINK')]"
 			]
 		}
 	]
