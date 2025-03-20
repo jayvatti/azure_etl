@@ -83,6 +83,9 @@
 				},
 				{
 					"name": "MessagesFlatten"
+				},
+				{
+					"name": "TimeStampFormat"
 				}
 			],
 			"scriptLines": [
@@ -127,9 +130,9 @@
 				"     validateSchema: false,",
 				"     format: 'document') ~> productsCosmos",
 				"source(output(",
-				"          CustomerID as integer,",
+				"          CustomerID as short,",
 				"          Profile as (FirstName as string, LastName as string, Email as string),",
-				"          Conversations as (ConversationID as string, Messages as (DateTime as string, Sender as string, Message as string)[])[]",
+				"          Conversations as (ConversationID as string, Messages as (DateTime as timestamp, Message as string, Sender as string, SupportAgent as string)[])[]",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
@@ -202,13 +205,14 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> ConvMessageFlow",
-				"ConvMessageFlow foldDown(unroll(Messages),",
+				"ConvMessageFlow foldDown(unroll(Messages, Messages),",
 				"     mapColumn(",
 				"          Messages,",
 				"          ConversationIDFormatINT",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> MessagesFlatten",
+				"MessagesFlatten derive(TimeStamp = Messages.DateTime) ~> TimeStampFormat",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
