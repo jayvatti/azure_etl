@@ -54,6 +54,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "ConversationSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_ConversationMessages_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -250,7 +257,27 @@
 				"     mapColumn(",
 				"          ConversationID = ConversationIDFormatINT,",
 				"          CustomerID",
-				"     )) ~> ConversationSink"
+				"     )) ~> ConversationSink",
+				"TimeStampFormat sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ConversationID as integer,",
+				"          SupportAgent as string,",
+				"          MessageSender as string,",
+				"          Message as string,",
+				"          Timestamp as binary",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          Timestamp = Messages",
+				"     )) ~> sink1"
 			]
 		}
 	}
