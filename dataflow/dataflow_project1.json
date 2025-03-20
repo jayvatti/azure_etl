@@ -43,7 +43,7 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "PhoneFormatting"
+					"name": "PhoneAndPrimaryEmail"
 				}
 			],
 			"scriptLines": [
@@ -131,7 +131,9 @@
 				"        ),",
 				"        7, 4",
 				"    )",
-				")) ~> PhoneFormatting"
+				"),",
+				"          PrimaryEmailAddress = iif(regexMatch(Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Invalid Email')",
+				") ~> PhoneAndPrimaryEmail"
 			]
 		}
 	}
