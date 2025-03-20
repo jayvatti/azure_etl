@@ -47,6 +47,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "AlternateEmails"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_Conversations_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -64,6 +71,12 @@
 				},
 				{
 					"name": "ConvFlatten"
+				},
+				{
+					"name": "ConversationIDFormatINT"
+				},
+				{
+					"name": "INTConversationID"
 				}
 			],
 			"scriptLines": [
@@ -172,6 +185,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> ConvFlatten",
+				"ConvFlatten derive(ConversationIDFormatINT = regexReplace(Conversations.ConversationID, '[^0-9]', '')) ~> ConversationIDFormatINT",
+				"ConversationIDFormatINT cast(output(",
+				"          ConversationIDFormatINT as integer",
+				"     ),",
+				"     errors: true) ~> INTConversationID",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -191,7 +209,25 @@
 				"          AlternateEmailID = realisticCustomersBlob@CustomerID,",
 				"          CustomerID = realisticCustomersCosmos@CustomerID,",
 				"          EmailAddress = Email",
-				"     )) ~> AlternateEmails"
+				"     )) ~> AlternateEmails",
+				"INTConversationID sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ConversationID as integer,",
+				"          CustomerID as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          ConversationID = ConversationIDFormatINT,",
+				"          CustomerID",
+				"     )) ~> sink1"
 			]
 		}
 	}
