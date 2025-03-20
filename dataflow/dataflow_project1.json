@@ -60,10 +60,10 @@
 					"name": "EmailAddress"
 				},
 				{
-					"name": "Conversations"
+					"name": "ConvFlow"
 				},
 				{
-					"name": "ConversationID"
+					"name": "ConvFlatten"
 				}
 			],
 			"scriptLines": [
@@ -157,19 +157,21 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> LeftOuterCustomerID",
-				"LeftOuterCustomerID derive(PrimaryEmailAddress = iif(regexMatch(Profile.Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Primary Email is Invalid')",
-				"",
-				",",
-				"          AlternateEmailAddress = iif(regexMatch(Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Alternate Email is Invalid')",
-				"",
-				") ~> EmailAddress",
+				"LeftOuterCustomerID derive(PrimaryEmailAddress = iif(regexMatch(Profile.Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Primary Email is Invalid'),",
+				"          AlternateEmailAddress = iif(regexMatch(Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Alternate Email is Invalid')) ~> EmailAddress",
 				"LeftOuterCustomerID select(mapColumn(",
 				"          CustomerID = realisticCustomersCosmos@CustomerID,",
 				"          Conversations",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> Conversations",
-				"Conversations derive(ConversationID = Conversations.ConversationID) ~> ConversationID",
+				"     skipDuplicateMapOutputs: true) ~> ConvFlow",
+				"ConvFlow foldDown(unroll(Conversations),",
+				"     mapColumn(",
+				"          CustomerID,",
+				"          Conversations",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> ConvFlatten",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
