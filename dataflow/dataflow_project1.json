@@ -40,7 +40,15 @@
 					"name": "realisticCustomersCosmos"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_AlternateEmails_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "PhoneFormatting"
@@ -148,7 +156,27 @@
 				",",
 				"          AlternateEmailAddress = iif(regexMatch(Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Alternate Email is Invalid')",
 				"",
-				") ~> EmailAddress"
+				") ~> EmailAddress",
+				"EmailAddress sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          AlternateEmailID as integer,",
+				"          CustomerID as integer,",
+				"          EmailAddress as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          AlternateEmailID = realisticCustomersBlob@CustomerID,",
+				"          CustomerID = realisticCustomersCosmos@CustomerID,",
+				"          EmailAddress = AlternateEmailAddress",
+				"     )) ~> sink1"
 			]
 		}
 	}
