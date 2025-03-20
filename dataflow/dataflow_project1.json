@@ -20,7 +20,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "BlobStorage_realitic_customers_SOURCE",
+						"referenceName": "BlobStorage_realistic_customers_SOURCE",
 						"type": "DatasetReference"
 					},
 					"name": "realisticCustomersBlob"
@@ -131,8 +131,7 @@
 				"        ),",
 				"        7, 4",
 				"    )",
-				")",
-				") ~> PhoneFormatting"
+				")) ~> PhoneFormatting"
 			]
 		}
 	}

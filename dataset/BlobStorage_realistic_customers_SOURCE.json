@@ -1,5 +1,5 @@
 {
-	"name": "BlobStorage_realitic_customers_SOURCE",
+	"name": "BlobStorage_realistic_customers_SOURCE",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlob_realistic_customers",
