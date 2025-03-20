@@ -77,6 +77,12 @@
 				},
 				{
 					"name": "INTConversationID"
+				},
+				{
+					"name": "ConvMessageFlow"
+				},
+				{
+					"name": "MessagesFlatten"
 				}
 			],
 			"scriptLines": [
@@ -190,6 +196,19 @@
 				"          ConversationIDFormatINT as integer",
 				"     ),",
 				"     errors: true) ~> INTConversationID",
+				"INTConversationID select(mapColumn(",
+				"          Messages = Conversations.Messages,",
+				"          ConversationIDFormatINT",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> ConvMessageFlow",
+				"ConvMessageFlow foldDown(unroll(Messages),",
+				"     mapColumn(",
+				"          Messages,",
+				"          ConversationIDFormatINT",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> MessagesFlatten",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
