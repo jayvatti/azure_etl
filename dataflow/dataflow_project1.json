@@ -61,6 +61,9 @@
 				},
 				{
 					"name": "Conversations"
+				},
+				{
+					"name": "ConversationID"
 				}
 			],
 			"scriptLines": [
@@ -166,6 +169,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> Conversations",
+				"Conversations derive(ConversationID = Conversations.ConversationID) ~> ConversationID",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -184,7 +188,7 @@
 				"     mapColumn(",
 				"          AlternateEmailID = realisticCustomersBlob@CustomerID,",
 				"          CustomerID = realisticCustomersCosmos@CustomerID,",
-				"          EmailAddress = AlternateEmailAddress",
+				"          EmailAddress = Email",
 				"     )) ~> AlternateEmails"
 			]
 		}
