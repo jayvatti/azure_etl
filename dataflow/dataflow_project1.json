@@ -93,6 +93,9 @@
 				},
 				{
 					"name": "ConvMessageSelect"
+				},
+				{
+					"name": "CustomerFlow"
 				}
 			],
 			"scriptLines": [
@@ -137,7 +140,7 @@
 				"     validateSchema: false,",
 				"     format: 'document') ~> productsCosmos",
 				"source(output(",
-				"          CustomerID as short,",
+				"          CustomerID as integer,",
 				"          Profile as (FirstName as string, LastName as string, Email as string),",
 				"          Conversations as (ConversationID as string, Messages as (DateTime as timestamp, Message as string, Sender as string, SupportAgent as string)[])[]",
 				"     ),",
@@ -228,6 +231,15 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> ConvMessageSelect",
+				"EmailAddress select(mapColumn(",
+				"          CustomerID = realisticCustomersCosmos@CustomerID,",
+				"          PhoneFormatted,",
+				"          PrimaryEmailAddress,",
+				"          FirstName = Profile.FirstName,",
+				"          LastName = Profile.LastName",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CustomerFlow",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
