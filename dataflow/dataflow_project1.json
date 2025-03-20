@@ -61,6 +61,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "ConversationMessages"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_Customer_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "CustomerSink"
 				}
 			],
 			"transformations": [
@@ -96,6 +103,9 @@
 				},
 				{
 					"name": "CustomerFlow"
+				},
+				{
+					"name": "CustomerIDFlow"
 				}
 			],
 			"scriptLines": [
@@ -240,6 +250,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> CustomerFlow",
+				"LeftOuterCustomerID select(mapColumn(",
+				"          CustomerID = realisticCustomersCosmos@CustomerID",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CustomerIDFlow",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -301,7 +316,31 @@
 				"          MessageSender = Sender,",
 				"          Message,",
 				"          Timestamp = DateTime",
-				"     )) ~> ConversationMessages"
+				"     )) ~> ConversationMessages",
+				"CustomerFlow sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CustomerID as integer,",
+				"          FirstName as string,",
+				"          LastName as string,",
+				"          PrimaryEmailAddress as string,",
+				"          PhoneNumber as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID,",
+				"          FirstName,",
+				"          LastName,",
+				"          PrimaryEmailAddress,",
+				"          PhoneNumber = PhoneFormatted",
+				"     )) ~> CustomerSink"
 			]
 		}
 	}
