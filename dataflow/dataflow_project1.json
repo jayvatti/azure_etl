@@ -30,7 +30,7 @@
 						"referenceName": "CosmosDb_Products_SOURCE",
 						"type": "DatasetReference"
 					},
-					"name": "prdocutsCosmos"
+					"name": "productsCosmos"
 				},
 				{
 					"dataset": {
@@ -43,7 +43,10 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "PhoneAndPrimaryEmail"
+					"name": "PhoneFormatting"
+				},
+				{
+					"name": "LeftOuterCustomerID"
 				}
 			],
 			"scriptLines": [
@@ -69,7 +72,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> ordersPGSQL",
 				"source(output(",
-				"          CustomerID as string,",
+				"          CustomerID as integer,",
 				"          Name as string,",
 				"          Email as string,",
 				"          Phone as string,",
@@ -86,7 +89,7 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'document') ~> prdocutsCosmos",
+				"     format: 'document') ~> productsCosmos",
 				"source(output(",
 				"          CustomerID as integer,",
 				"          Profile as (FirstName as string, LastName as string, Email as string),",
@@ -131,9 +134,12 @@
 				"        ),",
 				"        7, 4",
 				"    )",
-				"),",
-				"          PrimaryEmailAddress = iif(regexMatch(Email, '^[a-zA-Z0-9\\\\.]+@[a-zA-Z0-9]+\\\\.[a-zA-Z0-9]+$'), Email, 'Invalid Email')",
-				") ~> PhoneAndPrimaryEmail"
+				")) ~> PhoneFormatting",
+				"realisticCustomersCosmos, PhoneFormatting join(realisticCustomersCosmos@CustomerID == realisticCustomersBlob@CustomerID,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> LeftOuterCustomerID"
 			]
 		}
 	}
