@@ -134,6 +134,9 @@
 				},
 				{
 					"name": "DecimalTotalPricePerOrderID"
+				},
+				{
+					"name": "AlterRow1"
 				}
 			],
 			"scriptLines": [
@@ -315,6 +318,7 @@
 				"          totalPricePerOrderID as decimal(10,0)",
 				"     ),",
 				"     errors: true) ~> DecimalTotalPricePerOrderID",
+				"DecimalTotalPricePerOrderID alterRow() ~> AlterRow1",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -401,7 +405,7 @@
 				"          PrimaryEmailAddress,",
 				"          PhoneNumber = PhoneFormatted",
 				"     )) ~> CustomerSink",
-				"DecimalTotalPricePerOrderID sink(allowSchemaDrift: true,",
+				"AlterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          OrderID as integer,",
