@@ -72,7 +72,8 @@
 									"AlternateEmailsSink": {},
 									"ConversationSink": {},
 									"ConversationMessages": {},
-									"CustomerSink": {}
+									"CustomerSink": {},
+									"OrdersSink": {}
 								}
 							},
 							"staging": {},
@@ -374,14 +375,16 @@
 						"type": "varchar"
 					},
 					{
-						"name": "OrderDate",
-						"type": "timestamp"
-					},
-					{
 						"name": "OrderTotal",
 						"type": "decimal",
 						"precision": 10,
 						"scale": 2
+					},
+					{
+						"name": "OrderDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
 					}
 				],
 				"typeProperties": {
@@ -682,6 +685,13 @@
 								"type": "DatasetReference"
 							},
 							"name": "CustomerSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable_Orders_SINK",
+								"type": "DatasetReference"
+							},
+							"name": "OrdersSink"
 						}
 					],
 					"transformations": [
@@ -735,6 +745,12 @@
 						},
 						{
 							"name": "LeftOuterOrderIDAggregate"
+						},
+						{
+							"name": "OrderSink"
+						},
+						{
+							"name": "DecimalTotalPricePerOrderID"
 						}
 					],
 					"scriptLines": [
@@ -903,6 +919,19 @@
 						"     matchType:'exact',",
 						"     ignoreSpaces: false,",
 						"     broadcast: 'auto')~> LeftOuterOrderIDAggregate",
+						"LeftOuterOrderIDAggregate select(mapColumn(",
+						"          orderid = ordersPGSQL@orderid,",
+						"          customerid,",
+						"          orderdate,",
+						"          paymentstatus,",
+						"          totalPricePerOrderID",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> OrderSink",
+						"OrderSink cast(output(",
+						"          totalPricePerOrderID as decimal(10,0)",
+						"     ),",
+						"     errors: true) ~> DecimalTotalPricePerOrderID",
 						"EmailAddress sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
@@ -988,7 +1017,31 @@
 						"          LastName,",
 						"          PrimaryEmailAddress,",
 						"          PhoneNumber = PhoneFormatted",
-						"     )) ~> CustomerSink"
+						"     )) ~> CustomerSink",
+						"DecimalTotalPricePerOrderID sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          OrderID as integer,",
+						"          CustomerID as integer,",
+						"          PaymentStatus as string,",
+						"          OrderTotal as decimal(10,2),",
+						"          OrderDate as timestamp",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          OrderID = orderid,",
+						"          CustomerID = customerid,",
+						"          PaymentStatus = paymentstatus,",
+						"          OrderTotal = totalPricePerOrderID,",
+						"          OrderDate = orderdate",
+						"     )) ~> OrdersSink"
 					]
 				}
 			},
@@ -1001,7 +1054,8 @@
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_AlternateEmails_SINK')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_Conversations_SINK')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_ConversationMessages_SINK')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_Customer_SINK')]"
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_Customer_SINK')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_Orders_SINK')]"
 			]
 		}
 	]
