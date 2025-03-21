@@ -720,6 +720,21 @@
 						},
 						{
 							"name": "CustomerIDFlow"
+						},
+						{
+							"name": "LeftOuterProducts"
+						},
+						{
+							"name": "TotalPriceQunatityPerProduct"
+						},
+						{
+							"name": "OrderFlow"
+						},
+						{
+							"name": "OrderIDAggregateTotalPrice"
+						},
+						{
+							"name": "LeftOuterOrderIDAggregate"
 						}
 					],
 					"scriptLines": [
@@ -869,6 +884,25 @@
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> CustomerIDFlow",
+						"orderdetailsPGSQL, productsCosmos join(orderdetailsPGSQL@productid == productsCosmos@ProductID,",
+						"     joinType:'left',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> LeftOuterProducts",
+						"LeftOuterProducts derive(totalPriceQuantityPerProduct = multiply(productsCosmos@Price, quantity)) ~> TotalPriceQunatityPerProduct",
+						"TotalPriceQunatityPerProduct select(mapColumn(",
+						"          orderid,",
+						"          totalPriceQuantity = totalPriceQuantityPerProduct",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> OrderFlow",
+						"OrderFlow aggregate(groupBy(orderid),",
+						"     totalPricePerOrderID = sum(totalPriceQuantity)) ~> OrderIDAggregateTotalPrice",
+						"ordersPGSQL, OrderIDAggregateTotalPrice join(ordersPGSQL@orderid == OrderIDAggregateTotalPrice@orderid,",
+						"     joinType:'left',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> LeftOuterOrderIDAggregate",
 						"EmailAddress sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
