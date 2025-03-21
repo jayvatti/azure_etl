@@ -106,6 +106,9 @@
 				},
 				{
 					"name": "CustomerIDFlow"
+				},
+				{
+					"name": "LeftOuterProducts"
 				}
 			],
 			"scriptLines": [
@@ -255,6 +258,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> CustomerIDFlow",
+				"orderdetailsPGSQL, productsCosmos join(orderdetailsPGSQL@productid == productsCosmos@ProductID,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> LeftOuterProducts",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
