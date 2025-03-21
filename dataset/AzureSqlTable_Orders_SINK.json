@@ -23,14 +23,16 @@
 				"type": "varchar"
 			},
 			{
-				"name": "OrderDate",
-				"type": "timestamp"
-			},
-			{
 				"name": "OrderTotal",
 				"type": "decimal",
 				"precision": 10,
 				"scale": 2
+			},
+			{
+				"name": "OrderDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
 			}
 		],
 		"typeProperties": {

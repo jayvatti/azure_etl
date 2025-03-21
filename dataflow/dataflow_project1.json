@@ -74,7 +74,7 @@
 						"referenceName": "AzureSqlTable_Orders_SINK",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "OrdersSink"
 				}
 			],
 			"transformations": [
@@ -128,6 +128,12 @@
 				},
 				{
 					"name": "LeftOuterOrderIDAggregate"
+				},
+				{
+					"name": "OrderSink"
+				},
+				{
+					"name": "DecimalTotalPricePerOrderID"
 				}
 			],
 			"scriptLines": [
@@ -296,6 +302,19 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> LeftOuterOrderIDAggregate",
+				"LeftOuterOrderIDAggregate select(mapColumn(",
+				"          orderid = ordersPGSQL@orderid,",
+				"          customerid,",
+				"          orderdate,",
+				"          paymentstatus,",
+				"          totalPricePerOrderID",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> OrderSink",
+				"OrderSink cast(output(",
+				"          totalPricePerOrderID as decimal(10,0)",
+				"     ),",
+				"     errors: true) ~> DecimalTotalPricePerOrderID",
 				"EmailAddress sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -382,14 +401,14 @@
 				"          PrimaryEmailAddress,",
 				"          PhoneNumber = PhoneFormatted",
 				"     )) ~> CustomerSink",
-				"LeftOuterOrderIDAggregate sink(allowSchemaDrift: true,",
+				"DecimalTotalPricePerOrderID sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          OrderID as integer,",
 				"          CustomerID as integer,",
 				"          PaymentStatus as string,",
-				"          OrderDate as binary,",
-				"          OrderTotal as decimal(10,2)",
+				"          OrderTotal as decimal(10,2),",
+				"          OrderDate as timestamp",
 				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
@@ -400,11 +419,12 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
+				"          OrderID = orderid,",
 				"          CustomerID = customerid,",
 				"          PaymentStatus = paymentstatus,",
-				"          OrderDate = orderdate,",
-				"          OrderTotal = totalPricePerOrderID",
-				"     )) ~> sink1"
+				"          OrderTotal = totalPricePerOrderID,",
+				"          OrderDate = orderdate",
+				"     )) ~> OrdersSink"
 			]
 		}
 	}
