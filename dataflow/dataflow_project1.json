@@ -68,6 +68,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "CustomerSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_Orders_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -374,7 +381,30 @@
 				"          LastName,",
 				"          PrimaryEmailAddress,",
 				"          PhoneNumber = PhoneFormatted",
-				"     )) ~> CustomerSink"
+				"     )) ~> CustomerSink",
+				"LeftOuterOrderIDAggregate sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          OrderID as integer,",
+				"          CustomerID as integer,",
+				"          PaymentStatus as string,",
+				"          OrderDate as binary,",
+				"          OrderTotal as decimal(10,2)",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID = customerid,",
+				"          PaymentStatus = paymentstatus,",
+				"          OrderDate = orderdate,",
+				"          OrderTotal = totalPricePerOrderID",
+				"     )) ~> sink1"
 			]
 		}
 	}
