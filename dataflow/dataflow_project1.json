@@ -410,7 +410,7 @@
 				"          PhoneNumber as string",
 				"     ),",
 				"     deletable:false,",
-				"     insertable:true,",
+				"     insertable:false,",
 				"     updateable:false,",
 				"     upsertable:true,",
 				"     keys:['CustomerID'],",
