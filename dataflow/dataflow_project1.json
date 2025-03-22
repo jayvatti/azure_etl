@@ -401,7 +401,7 @@
 				"          Timestamp = DateTime",
 				"     )) ~> ConversationMessages",
 				"UpsertCustomerIDCustomers sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
+				"     validateSchema: true,",
 				"     input(",
 				"          CustomerID as integer,",
 				"          FirstName as string,",
