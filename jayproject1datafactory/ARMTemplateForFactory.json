@@ -766,6 +766,9 @@
 						},
 						{
 							"name": "UpsertOrderIDCustomerIDOrders"
+						},
+						{
+							"name": "SupportAgentRemovingNULL"
 						}
 					],
 					"scriptLines": [
@@ -949,9 +952,10 @@
 						"     errors: true) ~> DecimalTotalPricePerOrderID",
 						"EmailAddress alterRow(upsertIf(true())) ~> UpsertCustomerIDAlternateEmails",
 						"CustomerFlow alterRow(upsertIf(true())) ~> UpsertCustomerIDCustomers",
-						"ConvMessageSelect alterRow(upsertIf(true())) ~> UpsertConversationIDConversationMessages",
+						"SupportAgentRemovingNULL alterRow(upsertIf(true())) ~> UpsertConversationIDConversationMessages",
 						"INTConversationID alterRow(upsertIf(true())) ~> UpsertConversationIDCustomerIDConversations",
 						"DecimalTotalPricePerOrderID alterRow(upsertIf(true())) ~> UpsertOrderIDCustomerIDOrders",
+						"ConvMessageSelect derive(SupportAgentSTR = iif(isNull(SupportAgent), 'No Support Agent', SupportAgent)) ~> SupportAgentRemovingNULL",
 						"UpsertCustomerIDAlternateEmails sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
@@ -971,7 +975,7 @@
 						"     mapColumn(",
 						"          AlternateEmailID = realisticCustomersBlob@CustomerID,",
 						"          CustomerID = realisticCustomersCosmos@CustomerID,",
-						"          EmailAddress = Email",
+						"          EmailAddress = AlternateEmailAddress",
 						"     )) ~> AlternateEmailsSink",
 						"UpsertConversationIDCustomerIDConversations sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
@@ -1005,14 +1009,14 @@
 						"     insertable:true,",
 						"     updateable:false,",
 						"     upsertable:true,",
-						"     keys:['ConversationID'],",
+						"     keys:['ConversationID','Timestamp'],",
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError',",
 						"     mapColumn(",
 						"          ConversationID = ConversationIDFormatINT,",
-						"          SupportAgent,",
+						"          SupportAgent = SupportAgentSTR,",
 						"          MessageSender = Sender,",
 						"          Message,",
 						"          Timestamp = DateTime",
