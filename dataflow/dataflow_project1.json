@@ -338,7 +338,7 @@
 				"SupportAgentRemovingNULL alterRow(upsertIf(true())) ~> UpsertConversationIDConversationMessages",
 				"INTConversationID alterRow(upsertIf(true())) ~> UpsertConversationIDCustomerIDConversations",
 				"DecimalTotalPricePerOrderID alterRow(upsertIf(true())) ~> UpsertOrderIDCustomerIDOrders",
-				"ConvMessageSelect derive(SupportAgentSTR = iif(isNull(SupportAgent), \"NA\", SupportAgent)) ~> SupportAgentRemovingNULL",
+				"ConvMessageSelect derive(SupportAgentSTR = iif(isNull(SupportAgent), 'No Support Agent', SupportAgent)) ~> SupportAgentRemovingNULL",
 				"UpsertCustomerIDAlternateEmails sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
