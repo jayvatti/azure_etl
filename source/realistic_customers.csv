@@ -1,0 +1,201 @@
+CustomerID,Name,Email,Phone,LastPurchaseDate,TotalSpent
+1,Marc Grimes,marc.grimes@example.com,380-868-8398,11/9/2024,1402.57
+2,Jessica Jenkins,jessica.jenkins@example.com,848-667-5256,1/23/2024,605.38
+3,Stanley Henderson,stanley.henderson@example.com,(555) 545-1176,3/18/2023,896
+4,Zachary Young,zachary.young@example2.com,5554493,9/30/2023,1779.83
+5,Elijah Mccoy,elijah.mccoy@example.com,(555) 170-9164,10/18/2023,1374.53
+6,Leslie Mcfarland,leslie.mcfarland@example.com,5553312,3/14/2023,372.67
+7,Gerald Johnson,gerald.johnson@example.com,(555) 779-6139,7/1/2023,1029.12
+8,Max Dixon MD,max.dixon.md@example.com,5554351,12/31/2024,149.87
+9,Kimberly Duran,kimberly.duran@example.com,-10212,7/10/2023,960.05
+10,Brittany Lopez,brittany.lopez@example.com,-8324,11/23/2023,768.96
+11,Julian Chavez,julian.chavez@example.com,-4654,10/20/2023,230.86
+12,David Garcia,david.garcia@example.com,5555880,6/22/2023,848.56
+13,Benjamin Taylor,benjamin.taylor@example2.com,-9210,4/26/2023,969.8
+14,Autumn Lee,autumn.lee@example.com,(555) 746-2361,9/9/2023,134.89
+15,Manuel Jones,manuel.jones@example.com,-4515,10/5/2024,1641.02
+16,Pamela Day,pamela.day@example.com,-4489,4/5/2024,539.08
+17,Donna Rodriguez,donna.rodriguez@example.com,5555492,6/15/2023,326.51
+18,Danny Williams,danny.williams@example.com,5552599,10/16/2023,1471.75
+19,Michael Ball,michael.bell@example.com,-3564,10/11/2024,1037.44
+20,Lauren Klein,lauren.klein@example.com,(555) 188-8196,9/3/2023,1318.02
+21,Melody Mccoy DDS,melody.mccoy.dds@example.com,-4555,4/9/2024,1044.84
+22,Evelyn White,evelyn.white@example.com,101-812-7404,4/3/2024,1562.26
+23,Gabriella Smith,gabriella.smith@example.com,-2312,1/2/2024,1005.32
+24,Kimberly Bates,kimberly.bates@example.com,(555) 335-8438,7/12/2023,601.93
+25,Joshua Nguyen,joshua.nguyen@example.com,5559955,7/13/2023,1098.46
+26,Ms. Anne Velasquez MD,ms..anne.velasquez.md@example.com,5556940,3/8/2024,1593.84
+27,Angela Young,angela.young@example.com,150-477-6652,6/6/2024,1657.62
+28,David Lopez,david.lopez@example.com,519-359-7169,9/12/2024,475.98
+29,Eric Murray,eric.murray@example.com,5555429,12/16/2023,1324.82
+30,Taylor Johnson,taylor.johnson@example.com,-5662,9/8/2024,1814.27
+31,John Mendez,john.mendez@example.com,138-743-6971,10/24/2023,838.79
+32,Jimmy Davis,jimmy.davis@example.com,-4498,4/15/2024,1861.44
+33,Belinda Garcia,belinda.garcia@example.com,(555) 615-3085,1/6/2025,455.96
+34,Patricia Reid,patricia.reid@example.com,5558589,6/6/2023,1941.93
+35,Glen Palmer,glen.palmer@example.com,-8263,4/25/2024,206.44
+36,Shari Lopez,shari.lopez@example.com,(555) 571-5457,11/23/2024,1322.43
+37,Deborah Williams,deborah.williams@example.com,(555) 747-5305,10/19/2023,461.07
+38,Angelica Medina,angelica.medina@example.com,(555) 371-2075,9/27/2024,1299.78
+39,Dominique Roberts,dominique.roberts@example.com,412-486-8677,11/22/2024,368.97
+40,Dr. Andrew Howard,dr..andrew.howard@example.com,759-763-9524,12/4/2023,1317.78
+41,Susan Sullivan,susan.sullivan@example.com,5557946,7/18/2024,1502.02
+42,Dr. Philip Williams,dr..philip.williams@example.com,-3976,2/15/2024,1809.73
+43,Megan Glover,megan.glover@example.com,-5457,5/27/2023,181.55
+44,Roger Mayer,roger.mayer@example.com,-6130,9/18/2024,727.93
+45,Robin Wright,robin.wright@example.com,(555) 338-4779,11/8/2024,1261.62
+46,Benjamin Copeland,benjamin.copeland@example.com,5553650,11/21/2023,1062.07
+47,Mr. Joseph West,mr..joseph.west@example.com,5555156,9/6/2023,1056
+48,Robin Mendoza,robin.mendoza@example.com,659-330-1202,1/28/2024,1139.33
+49,Ruth Hill,ruth.hill@example.com,(555) 641-1780,5/14/2024,770.23
+50,Emily Miller,emily.miller@example.com,(555) 820-7393,9/7/2024,1701.67
+51,Christopher Stone,christopher.stone@example.com,5551116,6/5/2023,1268.43
+52,Kelsey Baird,kelsey.baird@example.com,-3975,12/3/2024,1133.03
+53,Aaron Conrad,aaron.conrad@example.com,440-858-1270,6/27/2024,1719
+54,Justin Smith,dustin.smith@example.com,(555) 484-3254,2/20/2023,1476.05
+55,Scott Dean,scott.dean@example.com,135-839-9392,12/23/2024,142.74
+56,Charles Kennedy,charles.kennedy@example.com,658-968-9097,11/5/2024,1228.84
+57,Emma Marsh,emma.marsh@example.com,788-360-9173,10/20/2024,1097.45
+58,Christina Valentine,christina.valentine@example.com,-7963,10/12/2024,1954.39
+59,Kyle Simon,kyle.simon@example.com,5552343,2/19/2023,1563.64
+60,Nathaniel Pratt,nathaniel.pratt@example.com,919-319-1756,4/29/2023,792.06
+61,Kimberly White,kimberly.white@example.com,(555) 606-5467,9/3/2023,324.31
+62,Robert Smith,robert.smith@example.com,-2992,7/28/2023,277.11
+63,Hannah Miller,hannah.miller@example.com,-8015,4/28/2024,1392.77
+64,Kimberly Hardin,kimberly.hardin@example.com,421-112-1388,8/22/2024,384.41
+65,Renee Atkins,renee.atkins@example.com,-10243,7/16/2023,1751.84
+66,Colton Peterson,colton.peterson@example.com,(555) 695-1370,8/28/2023,1661.11
+67,James Watkins,james.watkins@example.com,5552167,4/4/2023,1251.84
+68,Joseph Adams,joseph.adams@example.com,5559316,4/18/2023,1177.18
+69,Gina Williams,gina.williams@example.com,507-743-7083,7/16/2024,1981.34
+70,Gabriel Smith,gabriel.smith@example.com,884-377-1843,9/11/2024,531.02
+71,Donna Choi,donna.choi@example.com,-5303,10/20/2024,1389.11
+72,Mr. Raymond Owens,mr..raymond.owens@example.com,563-656-8670,9/19/2023,1132.7
+73,Patrick Cruz,patrick.cruz@example.com,5557268,11/17/2024,1604.28
+74,Karen Hill,karen.hill@example.com,-9149,11/11/2024,1664.96
+75,Melissa White,melissa.white@example.com,-8682,1/10/2024,398.8
+76,Richard Paul,richard.paul@example.com,-7337,2/14/2023,1229.89
+77,Andrew Whitney,andrew.whitney@example.com,(555) 415-3438,8/23/2024,1227.93
+78,Teresa Hernandez,teresa.hernandez@example.com,(555) 696-7083,7/30/2023,514.98
+79,James Cook,james.cook@example.com,887-868-7983,6/13/2024,865.24
+80,Brenda Lopez,brenda.lopez@example.com,5556687,7/13/2024,552.29
+81,Dustin Rivera,dustin.rivera@example.com,-9598,9/27/2024,797.55
+82,Hannah Medina,hannah.medina@example.com,606-888-9923,11/6/2023,1649.49
+83,Virginia Rowe,virginia.rowe@example.com,(555) 313-7794,7/12/2024,491.18
+84,Judy Rice,judy.price@example.com,(555) 573-8211,5/19/2024,1532.03
+85,Randall Mcfarland,randall.mcfarland@example.com,5553881,6/29/2024,909.66
+86,Jermaine Hensley MD,jermaine.hensley.md@example.com,5554453,5/2/2024,1993.44
+87,Jessica Rodriguez,jessica.rodriguez@example.com,5555276,3/16/2024,986.73
+88,Jonathan Nelson,jonathan.nelson@example.com,5557956,11/4/2023,883.7
+89,Tina Ayala,tina.ayala@example.com,-9610,5/30/2023,362.46
+90,Darren Luna,darren.luna@example.com,-3047,7/21/2024,1800.97
+91,Lisa Kennedy,lisa.kennedy@example.com,(555) 741-8284,12/4/2023,967.88
+92,Jonathan Gentry,jonathan.gentry@example.com,5555545,5/26/2023,1570.32
+93,Anne Holder,anne.holder@example.com,(555) 866-4832,8/1/2023,1594.38
+94,Marcus Kerr,marcus.kerr@example.com,5558149,6/5/2023,1872.13
+95,Ashley Harvey,ashley.harvey@example.com,418-856-3379,9/11/2024,1732.74
+96,Michael Rogers,michael.rogers@example.com,5552610,9/14/2023,1996.33
+97,Briana Ramirez,briana.ramirez@example.com,(555) 841-3047,5/30/2024,1780.6
+98,Ashley Bishop,ashley.bishop@example.com,5559148,7/11/2023,115.05
+99,Jade Edwards,jade.edwards@example.com,(555) 810-2358,10/28/2023,1939.11
+100,John Shepherd,john.shepherd@example.com,(555) 403-9289,11/14/2023,985.2
+101,Kyle Lee,kyle.lee@example.com,704-547-7545,8/5/2023,1373.39
+102,Joseph Moore,joseph.moore@example.com,(555) 231-2855,4/19/2024,1417.49
+103,Gail Burns,gail.burns@example.com,(555) 992-6985,11/12/2024,1545.94
+104,Elaine Young,elaine.young@example.com,5558243,3/19/2023,162.87
+105,Sharon Hunt,sharon.hunt@example.com,(555) 333-7996,4/10/2023,1109.15
+106,Kimberly Scott,kimberly.scott@example.com,5553078,7/17/2024,1104.73
+107,Melinda Garrison,melinda.garrison@example.com,-4652,7/13/2023,237.93
+108,Gary Ramirez,gary.ramirez@example.com,-2874,11/8/2023,1215.44
+109,Barbara Bright,barbara.bright@example.com,(555) 279-9006,12/29/2023,805.33
+110,Sara Smith,sara.smith@example.com,(555) 276-4749,4/1/2023,320.61
+111,Kenneth Hernandez,kenneth.hernandez@example.com,-5089,8/5/2023,228.41
+112,Jacob Foster,jacob.foster@example.com,447-308-3136,5/7/2023,1543.87
+113,Robert Santos,robert.santos@example.com,(555) 170-6863,7/12/2024,499.23
+114,Kaitlin Garcia,kaitlin.garcia@example.com,5554031,6/13/2023,200.17
+115,Stephanie Sanchez,stephanie.sanchez@example.com,5552681,9/4/2024,613.15
+116,Mitchell Woodard,mitchell.woodard@example.com,(555) 561-6042,9/20/2024,1772.85
+117,Lawrence Lang,lawrence.lang@example.com,512-795-8881,6/2/2023,1015.09
+118,Susan Gonzalez,susan.gonzalez@example.com,(555) 334-7686,10/4/2023,1867.22
+119,Michael Taylor,michael.taylor@example.com,482-379-7587,12/25/2024,1190.26
+120,Nathan Morse,nathan.morse@example.com,306-246-2454,7/19/2024,320.67
+121,Jose Ford,jose.ford@example.com,5559781,5/27/2024,1360.37
+122,Donna Mitchell,donna.mitchell@example.com,-2335,11/24/2024,1070.15
+123,Dwayne Nguyen,dwayne.nguyen@example.com,(555) 166-6677,11/9/2024,430.46
+124,Erin Johnson,erin.johnson@example.com,680-937-9842,4/20/2023,1891.29
+125,Raymond Rivera,raymond.rivera@example.com,5557884,5/9/2023,1847.14
+126,Wesley Edwards,wesley.edwards@example.com,5556926,10/5/2024,1342.23
+127,Dawn Cole,dawn.cole@example.com,879-225-2904,6/22/2024,971.25
+128,Brittany Maldonado,brittany.maldonado@example.com,-7041,9/4/2023,163.86
+129,Jill Dixon,jill.dixon@example.com,-8267,3/18/2024,1683.67
+130,Ariel Ramirez,ariel.ramirez@example.com,546-234-4620,4/25/2023,396.38
+131,Mark Taylor,mark.taylor@example.com,-2808,6/19/2024,730.94
+132,Shannon Brown,shannon.brown@example.com,5557808,8/26/2023,1705.86
+133,Christopher Anderson,christopher.anderson@example.com,-9962,1/10/2024,1251.39
+134,Sue Miles,sue.miles@example.com,5551651,12/1/2023,1504.72
+135,Caleb Horton,caleb.horton@example.com,5551204,7/22/2024,1297.89
+136,Daniel Rodriguez,daniel.rodriguez@example.com,-6590,9/21/2024,386.57
+137,Melissa Zamora,melissa.zamora@example.com,5555206,4/29/2024,973.34
+138,Thomas Cooley,thomas.cooley@example.com,(555) 224-3789,8/25/2024,960.95
+139,William Espinoza,william.espinoza@example.com,-8607,3/9/2024,612.76
+140,Maria Davis,maria.davis@example.com,5553072,3/23/2023,1058.31
+141,Robert Washington,robert.washington@example.com,283-456-2384,1/28/2024,1108.23
+142,Amanda Farrell,amanda.farrell@example.com,(555) 378-9461,1/26/2024,1278.93
+143,Garrett Rivers,garrett.rivers@example.com,948-482-3653,10/22/2024,1393.02
+144,Tamara Adkins,tamara.adkins@example.com,321-243-3197,7/26/2023,1349.65
+145,John Reyes,john.reyes@example.com,402-707-2242,4/18/2023,1595.03
+146,Jesse Ortiz,jesse.ortiz@example.com,712-314-6131,11/24/2023,580.91
+147,William Miller,william.miller@example.com,-10224,7/13/2023,420.99
+148,Lauren Brock,lauren.brock@example.com,(555) 465-4927,6/10/2024,317.58
+149,Jessica Fields,jessica.fields@example.com,5551352,11/16/2023,1309.42
+150,Nicole Riley,nicole.riley@example.com,(555) 585-3361,6/3/2023,1175.98
+151,Mr. Ryan Payne,mr..ryan.payne@example.com,(555) 450-1072,11/19/2024,993.35
+152,Jessica Walker,jessica.walker@example.com,475-852-8066,12/12/2023,371.92
+153,David Fuentes,david.fuentes@example.com,627-768-6858,11/1/2023,1538.32
+154,Dustin White,dustin.white@example.com,550-309-6729,10/22/2023,668.24
+155,Thomas Salazar,thomas.salazar@example.com,-2897,11/29/2024,502.17
+156,Walter Pollard,walter.pollard@example.com,(555) 403-1173,2/10/2024,1650.2
+157,Mr. Paul Hart Jr.,mr..paul.hart.jr.@example.com,(555) 880-3614,6/17/2023,355.53
+158,Kevin Mitchell,kevin.mitchell@example.com,(555) 445-1249,3/3/2024,646.76
+159,Maria Hardy,maria.hardy@example.com,(555) 159-4458,3/13/2023,693.4
+160,Julian Medina,julian.medina@example.com,715-395-5941,7/15/2024,1157.23
+161,Franklin Wilson,franklin.wilson@example.com,-2534,8/9/2024,1943.56
+162,Pamela Mcdonald,pamela.mcdonald@example.com,-4034,11/15/2024,606.37
+163,Lori Phelps,lori.phelps@example.com,718-307-2170,3/13/2024,1602.66
+164,Wendy Vasquez,wendy.vasquez@example.com,(555) 739-5537,11/20/2024,1591.28
+165,Mrs. Natalie Quinn,mrs..natalie.quinn@example.com,5558862,3/11/2023,1966.04
+166,Kelly Williams,kelly.williams@example.com,-6721,8/21/2023,174.38
+167,Joseph Fuller,joseph.fuller@example.com,5552053,7/27/2023,384.37
+168,Dustin Yang,dustin.yang@example2.com,(555) 913-7591,9/18/2024,714.74
+169,Brett Ball,brett.ball@example.com,5551353,10/12/2023,1001.21
+170,Travis Mann,travis.mann@example.com,-7699,10/21/2024,1859.77
+171,Charles Reynolds,charles.reynolds@example.com,831-261-6816,5/1/2024,982.81
+172,William Ferguson,william.ferguson@example.com,5556036,3/16/2023,698.58
+173,Julie Williams,julie.williams@example.com,298-303-4114,4/14/2024,1200.8
+174,Tara Gonzalez,tara.gonzalez@example.com,-10110,4/1/2023,455.45
+175,Kathryn Osborne DVM,kathryn.osborne.dvm@example.com,479-954-8439,10/7/2023,1971.74
+176,Shelley Sanchez,shelley.sanchez@example2.com,-9745,8/9/2024,1898.86
+177,Michele Wilson,michele.wilson@example.com,(555) 702-8146,10/31/2024,1062.82
+178,Stephanie Galvan,stephanie.galvan@example.com,665-849-4940,7/11/2024,1243.61
+179,Heidi Turner,heidi.turner@example.com,(555) 597-8513,5/3/2024,774.37
+180,Teresa Rodriguez,teresa.rodriguez@example.com,(555) 475-7880,9/9/2024,1127.91
+181,Maria Barry,maria.barry@example.com,741-625-2950,3/16/2023,759.67
+182,Luis Ibarra,luis.ibarra@example.com,(555) 690-9279,10/18/2023,1897.18
+183,Jacob Mitchell PhD,jacob.mitchell.phd@example.com,-9670,10/22/2024,925.62
+184,Jessica Stephens,jessica.stephens@example.com,-5607,10/23/2023,145.72
+185,Charles Gibbs,charles.gibbs@example.com,471-927-5709,3/22/2024,1895.66
+186,Kimberly Vargas,kimberly.vargas@example.com,-2129,12/19/2024,1803.3
+187,Timothy Gonzales PhD,timothy.gonzales.phd@example.com,551-400-6885,10/29/2023,1944.79
+188,Sean Burns,sean.burns@example.com,158-912-1932,3/1/2023,329.39
+189,Hannah Benton,hannah.benton@example.com,-10284,4/28/2023,1598.24
+190,Monica Hall,monica.hall@example.com,(555) 401-8289,12/22/2024,659.4
+191,Adam Wilkinson,adam.wilkinson@example.com,5551268,12/20/2024,1970.96
+192,Mr. Randall Brown,mr..randall.brown@example.com,-10755,10/31/2023,135.75
+193,Jon Lopez,jon.lopez@example.com,(555) 258-7243,3/1/2024,1695.98
+194,Peter Friedman,peter.friedman@example.com,(555) 662-4661,12/15/2024,1310.33
+195,Kelli Randolph,kelli.randolph@example.com,-2517,6/10/2023,298.42
+196,Kathryn Brown MD,kathryn.brown.md@example.com,(555) 149-4531,4/5/2023,638.59
+197,Michael Hodges,michael.hodges@example.com,-5135,2/20/2023,301.06
+198,Gregory Johns,gregory.johns@example.com,-4967,7/8/2024,383.63
+199,Jessica Evans,jessica.evans@example.com,-2444,12/12/2024,1418.35
+200,Kimberly Rubio,kimberly.rubio@example2.com,-10169,10/12/2024,122.05
