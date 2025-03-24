@@ -392,7 +392,7 @@
 				"     insertable:true,",
 				"     updateable:false,",
 				"     upsertable:true,",
-				"     keys:['ConversationID'],",
+				"     keys:['ConversationID','Timestamp'],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
