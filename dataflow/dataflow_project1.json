@@ -358,7 +358,7 @@
 				"     mapColumn(",
 				"          AlternateEmailID = realisticCustomersBlob@CustomerID,",
 				"          CustomerID = realisticCustomersCosmos@CustomerID,",
-				"          EmailAddress = Email",
+				"          EmailAddress = AlternateEmailAddress",
 				"     )) ~> AlternateEmailsSink",
 				"UpsertConversationIDCustomerIDConversations sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
